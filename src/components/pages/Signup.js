@@ -8,7 +8,7 @@ export class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isloggedin: sessionStorage.getItem("isloggedin") === "true" ? true : false
+      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
     };
   }
 

@@ -2,8 +2,6 @@
 import React, { Component } from "react";
 import Header from "../core/Header";
 import Footer from "../core/Footer";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export class Home extends Component {
   constructor(props) {
@@ -31,11 +29,13 @@ export class Home extends Component {
       <div>
         <Header />
         {this.state.loading === true ? (
-          <Loader type="Triangle" color="#00BFFF" height={100} width={100} />
+          <div className="cover-spin"></div>
         ) : (
-          <section className="section">
-            <h2>Home</h2>
-          </section>
+          <div>
+            <section className="section">
+              <h2>Home</h2>
+            </section>
+          </div>
         )}
         <Footer />
       </div>

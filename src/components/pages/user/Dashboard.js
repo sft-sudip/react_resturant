@@ -7,7 +7,7 @@ export class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isloggedin: sessionStorage.getItem("isloggedin") === "true" ? true : false
+      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
     };
   }
 
@@ -17,7 +17,8 @@ export class Dashboard extends Component {
         isloggedin: false
       },
       () => {
-        sessionStorage.clear();
+        localStorage.removeItem("isloggedin");
+        localStorage.removeItem("userData");
       }
     );
   };

@@ -8,7 +8,7 @@ export class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isloggedin: sessionStorage.getItem("isloggedin") === "true" ? true : false
+      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
     };
   }
 
@@ -26,8 +26,8 @@ export class Signin extends Component {
             isloggedin: true
           },
           () => {
-            sessionStorage.setItem("isloggedin", true);
-            sessionStorage.setItem("userData", res.data);
+            localStorage.setItem("isloggedin", true);
+            localStorage.setItem("userData", res.data);
           }
         );
       }
