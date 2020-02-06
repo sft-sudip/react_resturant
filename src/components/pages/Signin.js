@@ -3,6 +3,8 @@ import Header from "../core/Header";
 import Footer from "../core/Footer";
 import { Redirect } from "react-router-dom";
 import * as apiService from "../global/service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class Signin extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ export class Signin extends Component {
     this.state = {
       isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
     };
+    this.loginSubmit = this.loginSubmit.bind(this);
   }
 
   loginSubmit = () => {
@@ -18,18 +21,41 @@ export class Signin extends Component {
       password: "pistol"
     };
     apiService.userLogin(data).then(res => {
-      //console.log("response ==>> ", res);
-      //return false;
+      // console.log("response ==>> ", res);
+      // return false;
       if (res.status === 200) {
-        this.setState(
-          {
-            isloggedin: true
-          },
-          () => {
-            localStorage.setItem("isloggedin", true);
-            localStorage.setItem("userData", res.data);
-          }
+        toast.info("Login Successfull!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+        setTimeout(
+          function() {
+            this.setState(
+              {
+                isloggedin: true
+              },
+              () => {
+                localStorage.setItem("isloggedin", true);
+                localStorage.setItem("userData", res.data);
+                this.props.history.push("/user/dashboard");
+              }
+            );
+          }.bind(this),
+          1000
         );
+      } else {
+        toast.error("Oops! Something Went Wrong!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
       }
     });
   };
@@ -53,6 +79,7 @@ export class Signin extends Component {
           </button>
         </section>
         <Footer />
+        <ToastContainer />
       </div>
     );
   }

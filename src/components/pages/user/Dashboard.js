@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Header from "../../core/Header";
 import Footer from "../../core/Footer";
 import { Redirect } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -12,14 +14,27 @@ export class Dashboard extends Component {
   }
 
   logoutSubmit = () => {
-    this.setState(
-      {
-        isloggedin: false
-      },
-      () => {
-        localStorage.removeItem("isloggedin");
-        localStorage.removeItem("userData");
-      }
+    toast.info("Logout Successfull!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true
+    });
+    setTimeout(
+      function() {
+        this.setState(
+          {
+            isloggedin: false
+          },
+          () => {
+            localStorage.removeItem("isloggedin");
+            localStorage.removeItem("userData");
+          }
+        );
+      }.bind(this),
+      1000
     );
   };
 
@@ -42,6 +57,7 @@ export class Dashboard extends Component {
           </button>
         </section>
         <Footer />
+        <ToastContainer />
       </div>
     );
   }

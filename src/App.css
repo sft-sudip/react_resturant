@@ -70,3 +70,8 @@ to {transform:rotate(360deg);}
   -webkit-animation: spin .8s linear infinite;
   animation: spin .8s linear infinite;
 }
+
+.errorMsg {
+  color: #cc0000;
+  margin-bottom: 5px;
+}
