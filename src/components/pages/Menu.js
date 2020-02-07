@@ -2,29 +2,29 @@
 import React, { Component } from "react";
 import Header from "../core/Header";
 import Footer from "../core/Footer";
-import ProductList from "./ProductList";
+import MenuList from "./MenuList";
 import * as apiService from "../global/service";
 
-export class Product extends Component {
+export class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      products: []
+      menus: []
     };
   }
 
   componentDidMount = () => {
-    this.loadProduct();
+    this.loadMenus();
   };
 
-  loadProduct() {
+  loadMenus() {
     var params = "?page=2";
     apiService.getUserList(params).then(res => {
       // console.log("response ==>> ", res.data);
       // return false;
       this.setState({
-        products: res.data.data,
+        menus: res.data.data,
         loading: false
       });
     });
@@ -39,8 +39,8 @@ export class Product extends Component {
         ) : (
           <div>
             <section className="section">
-              <h2>Product List</h2>
-              <ProductList products={this.state.products} />
+              <h2>Menu List</h2>
+              <MenuList menus={this.state.menus} />
             </section>
           </div>
         )}
@@ -50,4 +50,4 @@ export class Product extends Component {
   }
 }
 
-export default Product;
+export default Menu;

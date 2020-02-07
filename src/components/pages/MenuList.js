@@ -2,20 +2,20 @@
 import React, { Component } from "react";
 import * as apiService from "../global/service";
 
-export class ProductList extends Component {
+export class MenuList extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    console.log("products ==>> ", this.props.products);
-    let products;
-    if (this.props.products) {
-      products = this.props.products.map((product, index) => {
+    console.log("menus ==>> ", this.props.menus);
+    let menus;
+    if (this.props.menus) {
+      menus = this.props.menus.map((menu, index) => {
         return (
         <li key={index} className="list-group-item">
-            <span><img width="50" alt="Product" src={product.avatar} /></span>
-            <span>{product.email}</span>
+            <span><img width="50" alt="menu" src={menu.avatar} /></span>
+            <span>{menu.email}</span>
         </li>
         );
       });
@@ -24,11 +24,11 @@ export class ProductList extends Component {
     return (
       <div>
         <section className="section">
-          <ul className="list-group">{products}</ul>
+          <ul className="list-group">{menus}</ul>
         </section>
       </div>
     );
   }
 }
 
-export default ProductList;
+export default MenuList;
