@@ -61,7 +61,8 @@ export class Signin extends Component {
   };
 
   render() {
-    if (this.state.isloggedin === true) {
+    const {isloggedin} = this.state;
+    if (isloggedin === true) {
       return <Redirect to="/user/dashboard" />;
     }
 

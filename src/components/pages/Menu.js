@@ -31,16 +31,17 @@ export class Menu extends Component {
   }
 
   render() {
+    const {loading,menus} = this.state;
     return (
       <div>
         <Header />
-        {this.state.loading === true ? (
+        {loading === true ? (
           <div className="cover-spin"></div>
         ) : (
           <div>
             <section className="section">
               <h2>Menu List</h2>
-              <MenuList menus={this.state.menus} />
+              <MenuList menus={menus} />
             </section>
           </div>
         )}

@@ -8,7 +8,7 @@ export class MenuList extends Component {
   }
 
   render() {
-    console.log("menus ==>> ", this.props.menus);
+    // console.log("menus ==>> ", this.props.menus);
     let menus;
     if (this.props.menus) {
       menus = this.props.menus.map((menu, index) => {

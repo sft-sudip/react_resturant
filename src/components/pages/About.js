@@ -25,10 +25,11 @@ export class About extends Component {
   }
 
   render() {
+    const {loading} = this.state;
     return (
       <div>
         <Header />
-        {this.state.loading === true ? (
+        {loading === true ? (
           <div className="cover-spin"></div>
         ) : (
           <div>
