@@ -1,7 +1,15 @@
 /* eslint-disable no-unused-expressions */
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Header from "../core/Header";
 import Footer from "../core/Footer";
+import HomeSlider from "./home/HomeSlider";
+import HomeTestimonial from "./home/HomeTestimonial";
+import HomeBrandLogo from "./home/HomeBrandLogo";
+import HomeAppSection from "./home/HomeAppSection";
+import HomeBannerTop from "./home/HomeBannerTop";
+import HomeBannerBottom from "./home/HomeBannerBottom";
+import HomePopularMenus from "./home/HomePopularMenus";
+import HomeTabMenus from "./home/HomeTabMenus";
 
 export class Home extends Component {
   constructor(props) {
@@ -25,19 +33,20 @@ export class Home extends Component {
   }
 
   render() {
-    const {loading} = this.state;
+
     return (
-      <div>
+      <div className="main-wrapper">
         <Header />
-        {loading === true ? (
-          <div className="cover-spin"></div>
-        ) : (
-          <div>
-            <section className="section">
-              <h2>Home</h2>
-            </section>
-          </div>
-        )}
+
+        <HomeSlider />
+        <HomeBannerTop />
+        <HomePopularMenus />
+        <HomeTabMenus />
+        <HomeBannerBottom />
+        <HomeTestimonial />
+        <HomeBrandLogo />
+        <HomeAppSection />
+
         <Footer />
       </div>
     );
