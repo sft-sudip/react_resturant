@@ -1,52 +1,40 @@
 /* eslint-disable no-unused-expressions */
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, Suspense } from "react";
 import Header from "../core/Header";
 import Footer from "../core/Footer";
-import HomeSlider from "./home/HomeSlider";
-import HomeTestimonial from "./home/HomeTestimonial";
-import HomeBrandLogo from "./home/HomeBrandLogo";
-import HomeAppSection from "./home/HomeAppSection";
-import HomeBannerTop from "./home/HomeBannerTop";
-import HomeBannerBottom from "./home/HomeBannerBottom";
-import HomePopularMenus from "./home/HomePopularMenus";
-import HomeTabMenus from "./home/HomeTabMenus";
+
+const HomeSlider = React.lazy(() => import("./home/HomeSlider"));
+const HomeTestimonial = React.lazy(() => import("./home/HomeTestimonial"));
+const HomeBrandLogo = React.lazy(() => import("./home/HomeBrandLogo"));
+const HomeAppSection = React.lazy(() => import("./home/HomeAppSection"));
+const HomeBannerTop = React.lazy(() => import("./home/HomeBannerTop"));
+const HomeBannerBottom = React.lazy(() => import("./home/HomeBannerBottom"));
+const HomePopularMenus = React.lazy(() => import("./home/HomePopularMenus"));
+const HomeTabMenus = React.lazy(() => import("./home/HomeTabMenus"));
 
 export class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true
-    };
   }
 
-  componentDidMount = () => {
-    this.hideLoader();
-  };
-
-  hideLoader() {
-    setTimeout(
-      function() {
-        this.setState({ loading: false });
-      }.bind(this),
-      3000
-    );
-  }
+  loading = () => <div className="cover-spin"></div>;
 
   render() {
-
     return (
       <div className="main-wrapper">
         <Header />
-
-        <HomeSlider />
-        <HomeBannerTop />
-        <HomePopularMenus />
-        <HomeTabMenus />
-        <HomeBannerBottom />
-        <HomeTestimonial />
-        <HomeBrandLogo />
-        <HomeAppSection />
-
+        <Fragment>
+          <Suspense fallback={this.loading()}>
+            <HomeSlider />
+            <HomeBannerTop />
+            <HomePopularMenus />
+            <HomeTabMenus />
+            <HomeBannerBottom />
+            <HomeTestimonial />
+            <HomeBrandLogo />
+            <HomeAppSection />
+          </Suspense>
+        </Fragment>
         <Footer />
       </div>
     );

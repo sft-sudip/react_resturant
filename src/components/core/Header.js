@@ -11,14 +11,14 @@ export class Header extends Component {
 
   isActive = (history, path) => {
     if (history.location.pathname === path) {
-      return { color: "#000000" };
+      return "active";
     } else {
-      return { color: "#CCCCCC" };
+      return "inactive";
     }
   };
 
   render() {
-    //let { history } = this.props;
+    let { history } = this.props;
     return (
       <Fragment>
         {/* <header>
@@ -36,9 +36,9 @@ export class Header extends Component {
               <div className="row align-items-center">
                 <div className="col-lg-7 col-md-5 col-5">
                   <div className="logo-area">
-                    <a href="javascript:void(0)">
+                    <Link to="/">
                       <img src="images/logo.jpg" alt="" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-lg-5">
@@ -80,14 +80,14 @@ export class Header extends Component {
                   <div className="main-menu-area">
                     <nav className="main-navigation">
                       <ul>
-                        <li className="active">
-                          <a href="javascript:void(0)">Home </a>
+                        <li className={this.isActive(history, "/")}>
+                          <Link to="/">Home</Link>
                         </li>
                         <li>
                           <a href="javascript:void(0)">ABOUT US</a>
                         </li>
-                        <li>
-                          <a href="javascript:void(0)">MENU</a>
+                        <li className={this.isActive(history, "/menu")}>
+                          <Link to="/menu">MENU</Link>
                         </li>
                         <li>
                           <a href="javascript:void(0)">My Account</a>
@@ -144,7 +144,7 @@ export class Header extends Component {
                               className="remove_from_cart"
                               href="javascript:void(0)"
                             >
-                              <i className="icon-x"></i>
+                              <i className="fa fa-trash-o"></i>
                             </a>
                           </div>
                         </li>
@@ -168,7 +168,7 @@ export class Header extends Component {
                               className="remove_from_cart"
                               href="javascript:void(0)"
                             >
-                              <i className="icon-trash icons"></i>
+                              <i className="fa fa-trash-o"></i>
                             </a>
                           </div>
                         </li>

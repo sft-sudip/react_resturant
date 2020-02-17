@@ -1,7 +1,7 @@
 {
   "name": "resturant",
   "version": "0.1.0",
-  "homepage": "http://166.62.54.122/react_resturant/",
+  "homepage": "http://166.62.54.122/onlineresturant/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-js-pagination": "^3.0.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1",
     "react-slick": "^0.25.2",

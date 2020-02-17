@@ -1,14 +1,17 @@
-import React from "react";
-import Routes from "./components/Routes";
+import React, { Component, Fragment, Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+
+const Routes = React.lazy(() => import("./components/Routes"));
 
 function App() {
   return (
     <div>
-      {/* <Router basename={"/react_resturant"}> */}
+      {/* <Router basename={"/onlineresturant"}> */}
       <Router>
-        <Routes />
+        <Suspense fallback={<div className="cover-spin"></div>}>
+          <Routes />
+        </Suspense>
       </Router>
     </div>
   );
