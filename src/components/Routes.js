@@ -19,6 +19,8 @@ export class Routes extends Component {
         <Route path="/menu" component={Menu} />
         <Route path="/menu-detail" component={MenuDetail} />
         <Route path="/cart" component={Cart} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={Signin} />
         <Route path="*" component={NotFound} />
         {/* <Route exact path="/about" component={About} />
         <Route path="/signin" component={Signin} />

@@ -6,6 +6,7 @@ import MenuList from "./MenuList";
 import * as apiService from "../global/service";
 import Pagination from "react-js-pagination";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class Menu extends Component {
   constructor(props) {

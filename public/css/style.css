@@ -303,7 +303,9 @@ button:focus, a:focus {
 	color: #ffffff;
 	background: #80bb01;
 }
-
+.errorMsg {
+	color: red;
+}
 
 
 
