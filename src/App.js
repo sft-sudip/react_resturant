@@ -7,8 +7,8 @@ const Routes = React.lazy(() => import("./components/Routes"));
 function App() {
   return (
     <div>
-      {/* <Router basename={"/onlineresturant"}> */}
-      <Router>
+      <Router basename={"/onlineresturant"}>
+      {/* <Router> */}
         <Suspense fallback={<div className="cover-spin"></div>}>
           <Routes />
         </Suspense>

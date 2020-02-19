@@ -12,7 +12,8 @@ export class Signin extends Component {
     this.state = {
       isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false,
       fields: {},
-      errors: {}
+      errors: {},
+      isLoading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,6 +33,7 @@ export class Signin extends Component {
   submitLoginForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
+      this.setState({ isLoading: true });
       var data = {
         email: "eve.holt@reqres.in",
         password: "pistol"
@@ -40,37 +42,38 @@ export class Signin extends Component {
         // console.log("response ==>> ", res);
         // return false;
         if (res.status === 200) {
-          toast.info("Login Successfull!", {
+          toast.success("Login Successfull!", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false
           });
-          // setTimeout(
-          //   function() {
-          //     this.setState(
-          //       {
-          //         isloggedin: true
-          //       },
-          //       () => {
-          //         localStorage.setItem("isloggedin", true);
-          //         localStorage.setItem("userData", res.data);
-          //         this.props.history.push("/user/dashboard");
-          //       }
-          //     );
-          //   }.bind(this),
-          //   2000
-          // );
+          setTimeout(
+            function() {
+              this.setState(
+                {
+                  isloggedin: true,
+                  isLoading: false
+                },
+                () => {
+                  localStorage.setItem("isloggedin", true);
+                  localStorage.setItem("userData", res.data);
+                  this.props.history.push("/user/dashboard");
+                }
+              );
+            }.bind(this),
+            1500
+          );
         } else {
           toast.error("Oops! Something Went Wrong!", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false
           });
         }
       });
@@ -110,13 +113,14 @@ export class Signin extends Component {
   }
 
   render() {
-    const { isloggedin } = this.state;
+    const { isloggedin, isLoading, fields, errors } = this.state;
     if (isloggedin === true) {
       return <Redirect to="/user/dashboard" />;
     }
 
     return (
-      <div>
+      <div className="main-wrapper">
+        {isLoading ? <div className="cover-spin"></div> : ""}
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>
@@ -131,28 +135,23 @@ export class Signin extends Component {
                   className="form-control"
                   type="text"
                   name="email"
-                  value={this.state.fields.email}
+                  value={fields.email}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.email}</div>
+                <div className="errorMsg">{errors.email}</div>
               </div>
-
               <div className="form-group">
                 <label>Password</label>
                 <input
                   className="form-control"
                   type="password"
                   name="password"
-                  value={this.state.fields.password}
+                  value={fields.password}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.password}</div>
+                <div className="errorMsg">{errors.password}</div>
               </div>
-              <input
-                type="submit"
-                className="btn btn-primary"
-                value="Login"
-              />
+              <input type="submit" className="btn btn-primary" value="Login" />
             </form>
           </Suspense>
         </Fragment>

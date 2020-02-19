@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
@@ -16,11 +17,14 @@ export class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/contact" component={Contact} />
         <Route path="/menu" component={Menu} />
         <Route path="/menu-detail" component={MenuDetail} />
         <Route path="/cart" component={Cart} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
+        <PrivateRoute path="/user/dashboard" component={Dashboard} />
         <Route path="*" component={NotFound} />
         {/* <Route exact path="/about" component={About} />
         <Route path="/signin" component={Signin} />

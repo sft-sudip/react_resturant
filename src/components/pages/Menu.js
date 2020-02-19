@@ -14,7 +14,8 @@ export class Menu extends Component {
     this.state = {
       menus: [],
       activePage: 1,
-      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
+      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false,
+      isLoading: false
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -23,13 +24,15 @@ export class Menu extends Component {
   loading = () => <div className="cover-spin"></div>;
 
   handlePageChange = pageNumber => {
+    this.setState({ isLoading: true });
     var params = "?page=" + pageNumber;
     apiService.getUserList(params).then(res => {
       // console.log("response ==>> ", res.data);
       // return false;
       this.setState({
         menus: res.data.data,
-        activePage: pageNumber
+        activePage: pageNumber,
+        isLoading: false
       });
     });
   };
@@ -67,22 +70,25 @@ export class Menu extends Component {
   };
 
   loadMenus() {
+    this.setState({ isLoading: true });
     var params = "?page=1";
     apiService.getUserList(params).then(res => {
       // console.log("response ==>> ", res.data);
       // return false;
       this.setState({
-        menus: res.data.data
+        menus: res.data.data,
+        isLoading: false
       });
     });
   }
 
   render() {
-    const { menus, activePage } = this.state;
+    const { menus, activePage, isLoading } = this.state;
     console.log("Menus==>>", menus);
 
     return (
       <div className="main-wrapper">
+        {isLoading ? <div className="cover-spin"></div> : ""}
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>

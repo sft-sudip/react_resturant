@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class Header extends Component {
   constructor(props) {
@@ -17,8 +19,86 @@ export class Header extends Component {
     }
   };
 
+  logoutSubmit = () => {
+    toast.success("Logout Successfull!", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false
+    });
+    setTimeout(
+      function() {
+        this.setState(
+          {
+            isloggedin: false
+          },
+          () => {
+            localStorage.removeItem("isloggedin");
+            localStorage.removeItem("userData");
+            this.props.history.push("/signin");
+          }
+        );
+      }.bind(this),
+      1500
+    );
+  };
+
   render() {
     let { history } = this.props;
+    const { isloggedin } = this.state;
+    let navmenus;
+    if (isloggedin === true) {
+      navmenus = (
+        <ul>
+          <li className={this.isActive(history, "/")}>
+            <Link to="/">HOME</Link>
+          </li>
+          <li className={this.isActive(history, "/about")}>
+            <Link to="/about">About US</Link>
+          </li>
+          <li className={this.isActive(history, "/menu")}>
+            <Link to="/menu">MENU</Link>
+          </li>
+          <li className={this.isActive(history, "/contact")}>
+            <Link to="/contact">Contact US</Link>
+          </li>
+          <li className={this.isActive(history, "/user/dashboard")}>
+            <Link to="/user/dashboard">DASHBOARD</Link>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onClick={this.logoutSubmit}>
+              LOGOUT
+            </a>
+          </li>
+        </ul>
+      );
+    } else {
+      navmenus = (
+        <ul>
+          <li className={this.isActive(history, "/")}>
+            <Link to="/">HOME</Link>
+          </li>
+          <li className={this.isActive(history, "/about")}>
+            <Link to="/about">About US</Link>
+          </li>
+          <li className={this.isActive(history, "/menu")}>
+            <Link to="/menu">MENU</Link>
+          </li>
+          <li>
+            <a href="javascript:void(0)">REGISTRATION</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">LOGIN</a>
+          </li>
+          <li className={this.isActive(history, "/contact")}>
+            <Link to="/contact">Contact US</Link>
+          </li>
+        </ul>
+      );
+    }
+
     return (
       <Fragment>
         {/* <header>
@@ -78,28 +158,7 @@ export class Header extends Component {
               <div className="row align-items-center">
                 <div className="col-lg-9 d-none d-lg-block">
                   <div className="main-menu-area">
-                    <nav className="main-navigation">
-                      <ul>
-                        <li className={this.isActive(history, "/")}>
-                          <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                          <a href="javascript:void(0)">ABOUT US</a>
-                        </li>
-                        <li className={this.isActive(history, "/menu")}>
-                          <Link to="/menu">MENU</Link>
-                        </li>
-                        <li>
-                          <a href="javascript:void(0)">My Account</a>
-                        </li>
-                        <li>
-                          <a href="javascript:void(0)">login &amp; register</a>
-                        </li>
-                        <li>
-                          <a href="javascript:void(0)">Contact</a>
-                        </li>
-                      </ul>
-                    </nav>
+                    <nav className="main-navigation">{navmenus}</nav>
                   </div>
                 </div>
                 <div className="col-5 col-md-6 d-block d-lg-none">
@@ -416,6 +475,7 @@ export class Header extends Component {
             </div>
           </aside>
         </header>
+        <ToastContainer />
       </Fragment>
     );
   }

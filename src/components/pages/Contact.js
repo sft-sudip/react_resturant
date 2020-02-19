@@ -1,24 +1,15 @@
 import React, { Component, Fragment, Suspense } from "react";
-import Header from "../../core/Header";
-import Footer from "../../core/Footer";
-import { Redirect } from "react-router-dom";
+import Header from "../core/Header";
+import Footer from "../core/Footer";
 
-export class Dashboard extends Component {
+export class Contact extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
-    };
   }
 
   loading = () => <div className="cover-spin"></div>;
 
   render() {
-    const { isloggedin } = this.state;
-    if (isloggedin === false) {
-      return <Redirect to="/signin" />;
-    }
-
     return (
       <div>
         <Header />
@@ -27,13 +18,13 @@ export class Dashboard extends Component {
             <div className="innerbanner">
               <div className="container">
                 <div className="row">
-                  <h2>Dashboard</h2>
+                  <h2>Contact Us</h2>
                   <div className="col-12">
                     <ul className="breadcrumb-list">
                       <li className="breadcrumb-item">
                         <a href="javascript:void(0)">Home</a>
                       </li>
-                      <li className="breadcrumb-item active">Dashboard</li>
+                      <li className="breadcrumb-item active">Contact Us</li>
                     </ul>
                   </div>
                 </div>
@@ -47,4 +38,4 @@ export class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default Contact;

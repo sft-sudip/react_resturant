@@ -14,7 +14,8 @@ export class Signup extends Component {
       fields: {},
       errors: {},
       uotp: 12345,
-      existuser: 0
+      existuser: 0,
+      isLoading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,27 +42,43 @@ export class Signup extends Component {
   submitRegisterForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
+      this.setState({ isLoading: true });
       apiService.userRegister(this.state.fields).then(res => {
         // console.log("response ==>> ", res);
         // return false;
         if (res.status === 200) {
-          this.setState(
-            {
-              isloggedin: true
-            },
-            () => {
-              localStorage.setItem("isloggedin", true);
-              localStorage.setItem("userData", res.data);
-            }
+          toast.success("Registrtion Successfull!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false
+          });
+          setTimeout(
+            function() {
+              this.setState(
+                {
+                  isloggedin: true,
+                  isLoading: false
+                },
+                () => {
+                  localStorage.setItem("isloggedin", true);
+                  localStorage.setItem("userData", res.data);
+                  this.props.history.push("/user/dashboard");
+                }
+              );
+            }.bind(this),
+            1500
           );
         } else {
           toast.error("Oops! Something Went Wrong!", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false
           });
         }
       });
@@ -166,13 +183,14 @@ export class Signup extends Component {
   }
 
   render() {
-    const { isloggedin } = this.state;
+    const { isloggedin, isLoading, fields, errors } = this.state;
     if (isloggedin === true) {
       return <Redirect to="/user/dashboard" />;
     }
 
     return (
-      <div>
+      <div className="main-wrapper">
+        {isLoading ? <div className="cover-spin"></div> : ""}
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>
@@ -187,10 +205,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="firstname"
-                  value={this.state.fields.firstname}
+                  value={fields.firstname}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.firstname}</div>
+                <div className="errorMsg">{errors.firstname}</div>
               </div>
 
               <div className="form-group">
@@ -199,15 +217,15 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="lastname"
-                  value={this.state.fields.lastname}
+                  value={fields.lastname}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.lastname}</div>
+                <div className="errorMsg">{errors.lastname}</div>
               </div>
 
               <div className="form-group">
                 <label>
-                  Phone Number{" "}
+                  Phone Number
                   <button
                     className="btn btn-info"
                     onClick={this.existUserCheck}
@@ -219,10 +237,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="phoneno"
-                  value={this.state.fields.phoneno}
+                  value={fields.phoneno}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.phoneno}</div>
+                <div className="errorMsg">{errors.phoneno}</div>
               </div>
 
               <div className="form-group">
@@ -231,10 +249,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="otp"
-                  value={this.state.fields.otp}
+                  value={fields.otp}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.otp}</div>
+                <div className="errorMsg">{errors.otp}</div>
               </div>
 
               <div className="form-group">
@@ -243,10 +261,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="text"
                   name="email"
-                  value={this.state.fields.email}
+                  value={fields.email}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.email}</div>
+                <div className="errorMsg">{errors.email}</div>
               </div>
 
               <div className="form-group">
@@ -255,10 +273,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="password"
                   name="password"
-                  value={this.state.fields.password}
+                  value={fields.password}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.password}</div>
+                <div className="errorMsg">{errors.password}</div>
               </div>
 
               <div className="form-group">
@@ -267,10 +285,10 @@ export class Signup extends Component {
                   className="form-control"
                   type="password"
                   name="cpassword"
-                  value={this.state.fields.cpassword}
+                  value={fields.cpassword}
                   onChange={this.handleChange}
                 />
-                <div className="errorMsg">{this.state.errors.cpassword}</div>
+                <div className="errorMsg">{errors.cpassword}</div>
               </div>
               <input
                 className="form-control"
@@ -283,7 +301,7 @@ export class Signup extends Component {
                 className="btn btn-primary"
                 value="Register"
               />
-              <div className="errorMsg">{this.state.errors.existuser}</div>
+              <div className="errorMsg">{errors.existuser}</div>
             </form>
           </Suspense>
         </Fragment>
