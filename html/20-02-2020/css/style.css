@@ -304,7 +304,7 @@ button:focus, a:focus {
 	background: #80bb01;
 }
 .errorMsg {
-	color: maroon;
+	color: red;
 }
 .pagination-box {
 	display: flex;
@@ -5666,18 +5666,15 @@ to {
 	border: 1px solid #fff;
 	color:
 #666666;
-	/* margin-bottom: 20px; */
+	margin-bottom: 20px;
 	padding: 9px 12px;
 	width: 100%;
 	font-size: 14px;
 	border-radius: 10px;
 }
-.login-toggle-btn label {
-	color: white;
-}
 .login-toggle-btn a {
 	float: right;
-	color: white;
+	color: red;
 	font-size: 14px;
 }
 @media only screen and (max-width: 479px) {

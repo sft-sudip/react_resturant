@@ -13,8 +13,11 @@ export class Signup extends Component {
       isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false,
       fields: {},
       errors: {},
-      uotp: 12345,
-      existuser: 0,
+      uotp:
+        sessionStorage.getItem("uotp") != ""
+          ? sessionStorage.getItem("uotp")
+          : "",
+      existuser: sessionStorage.getItem("existuser") != "" ? true : false,
       isLoading: false
     };
 
@@ -34,9 +37,26 @@ export class Signup extends Component {
   }
 
   existUserCheck = e => {
-    this.setState({
-      existuser: 1
+    this.setState({ isLoading: true });
+    toast.success("OTP has sent to your phone no!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false
     });
+    this.setState(
+      {
+        existuser: false,
+        uotp: "12345",
+        isLoading: false
+      },
+      () => {
+        sessionStorage.setItem("existuser", false);
+        sessionStorage.setItem("uotp", "12345");
+      }
+    );
   };
 
   submitRegisterForm(e) {
@@ -170,9 +190,16 @@ export class Signup extends Component {
       }
     }
 
-    if (this.state.existuser == 0) {
+    if (this.state.existuser) {
       formIsValid = false;
-      errors["existuser"] = "*Please verify your phone no first";
+      toast.error("Please verify your phone no first", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false
+      });
     }
 
     this.setState({
@@ -194,115 +221,151 @@ export class Signup extends Component {
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>
-            <form
-              method="post"
-              name="RegistrationForm"
-              onSubmit={this.submitRegisterForm}
-            >
-              <div className="form-group">
-                <label>First Name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="firstname"
-                  value={fields.firstname}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.firstname}</div>
-              </div>
+            <div className="main-content-wrap section-ptb lagin-and-register-page login_background">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-7 col-md-12 ml-auto mr-auto">
+                    <div className="login-form-container">
+                      <div className="login-register-wrapper">
+                        <h2>Register</h2>
+                        <div className="login-form-container">
+                          <div className="login-register-form">
+                            <form
+                              method="post"
+                              name="RegistrationForm"
+                              onSubmit={this.submitRegisterForm}
+                            >
+                              <div className="login-input-box">
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    name="firstname"
+                                    value={fields.firstname}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter First Name"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">
+                                    {errors.firstname}
+                                  </div>
+                                </div>
 
-              <div className="form-group">
-                <label>Last Name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="lastname"
-                  value={fields.lastname}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.lastname}</div>
-              </div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    name="lastname"
+                                    value={fields.lastname}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Last Name"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">
+                                    {errors.lastname}
+                                  </div>
+                                </div>
 
-              <div className="form-group">
-                <label>
-                  Phone Number
-                  <button
-                    className="btn btn-info"
-                    onClick={this.existUserCheck}
-                  >
-                    Verify
-                  </button>
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="phoneno"
-                  value={fields.phoneno}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.phoneno}</div>
-              </div>
+                                <div className="form-group">
+                                  <div class="input-group mb-3">
+                                    <input
+                                      className="form-control"
+                                      type="text"
+                                      name="phoneno"
+                                      value={fields.phoneno}
+                                      onChange={this.handleChange}
+                                      placeholder="Enter Phone No"
+                                      autoComplete="off"
+                                    />
+                                    <div class="input-group-append">
+                                      <button
+                                        class="btn btn-outline-secondary verify"
+                                        type="button"
+                                        onClick={this.existUserCheck}
+                                      >
+                                        Verify
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div className="errorMsg">
+                                    {errors.phoneno}
+                                  </div>
+                                </div>
 
-              <div className="form-group">
-                <label>OTP</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="otp"
-                  value={fields.otp}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.otp}</div>
-              </div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    name="otp"
+                                    value={fields.otp}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter OTP"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">{errors.otp}</div>
+                                </div>
 
-              <div className="form-group">
-                <label>Email ID</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="email"
-                  value={fields.email}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.email}</div>
-              </div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    name="email"
+                                    value={fields.email}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Email ID"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">{errors.email}</div>
+                                </div>
 
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="password"
-                  value={fields.password}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.password}</div>
-              </div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="password"
+                                    name="password"
+                                    value={fields.password}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Password"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">
+                                    {errors.password}
+                                  </div>
+                                </div>
 
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="cpassword"
-                  value={fields.cpassword}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.cpassword}</div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="password"
+                                    name="cpassword"
+                                    value={fields.cpassword}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Confirm Password"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">
+                                    {errors.cpassword}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="button-box">
+                                <button
+                                  className="register-btn btn"
+                                  type="submit"
+                                >
+                                  <span>Register</span>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <input
-                className="form-control"
-                type="hidden"
-                name="existuser"
-                value={this.state.existuser}
-              />
-              <input
-                type="submit"
-                className="btn btn-primary"
-                value="Register"
-              />
-              <div className="errorMsg">{errors.existuser}</div>
-            </form>
+            </div>
           </Suspense>
         </Fragment>
         <Footer />

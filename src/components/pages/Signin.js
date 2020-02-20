@@ -124,35 +124,74 @@ export class Signin extends Component {
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>
-            <form
-              method="post"
-              name="LoginForm"
-              onSubmit={this.submitLoginForm}
-            >
-              <div className="form-group">
-                <label>Email ID</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="email"
-                  value={fields.email}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.email}</div>
+            <div className="main-content-wrap section-ptb lagin-and-register-page login_background">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-7 col-md-12 ml-auto mr-auto">
+                    <div className="login-form-container">
+                      <div className="login-register-wrapper">
+                        <h2>Login</h2>
+                        <div className="login-form-container">
+                          <div className="login-register-form">
+                            <form
+                              method="post"
+                              name="LoginForm"
+                              onSubmit={this.submitLoginForm}
+                            >
+                              <div className="login-input-box">
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    name="email"
+                                    value={fields.email}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Email"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">{errors.email}</div>
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    className="form-control"
+                                    type="password"
+                                    name="password"
+                                    value={fields.password}
+                                    onChange={this.handleChange}
+                                    placeholder="Enter Password"
+                                    autoComplete="off"
+                                  />
+                                  <div className="errorMsg">
+                                    {errors.password}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="button-box">
+                                <div className="login-toggle-btn">
+                                  <input type="checkbox" />
+                                  <label>Remember me</label>
+                                  <a href="javascript:void(0)">
+                                    Forgot Password?
+                                  </a>
+                                </div>
+                                <div className="button-box">
+                                  <button
+                                    className="login-btn btn"
+                                    type="submit"
+                                  >
+                                    <span>Login</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  name="password"
-                  value={fields.password}
-                  onChange={this.handleChange}
-                />
-                <div className="errorMsg">{errors.password}</div>
-              </div>
-              <input type="submit" className="btn btn-primary" value="Login" />
-            </form>
+            </div>
           </Suspense>
         </Fragment>
         <Footer />
