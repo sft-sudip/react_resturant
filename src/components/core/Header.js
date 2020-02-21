@@ -20,29 +20,32 @@ export class Header extends Component {
   };
 
   logoutSubmit = () => {
-    toast.success("Logout Successfull!", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false
-    });
-    setTimeout(
-      function() {
-        this.setState(
-          {
-            isloggedin: false
-          },
-          () => {
-            localStorage.removeItem("isloggedin");
-            localStorage.removeItem("userData");
-            this.props.history.push("/signin");
-          }
-        );
-      }.bind(this),
-      1500
-    );
+    const r = window.confirm("Do you really want to Sign Out?");
+    if (r === true) {
+      toast.success("Logout Successfull!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false
+      });
+      setTimeout(
+        function() {
+          this.setState(
+            {
+              isloggedin: false
+            },
+            () => {
+              localStorage.removeItem("isloggedin");
+              localStorage.removeItem("userData");
+              this.props.history.push("/signin");
+            }
+          );
+        }.bind(this),
+        1500
+      );
+    }
   };
 
   render() {
@@ -56,13 +59,13 @@ export class Header extends Component {
             <Link to="/">HOME</Link>
           </li>
           <li className={this.isActive(history, "/about")}>
-            <Link to="/about">About US</Link>
+            <Link to="/about">ABOUT US</Link>
           </li>
           <li className={this.isActive(history, "/menu")}>
             <Link to="/menu">MENU</Link>
           </li>
           <li className={this.isActive(history, "/contact")}>
-            <Link to="/contact">Contact US</Link>
+            <Link to="/contact">CONTACT US</Link>
           </li>
           <li className={this.isActive(history, "/user/dashboard")}>
             <Link to="/user/dashboard">DASHBOARD</Link>
@@ -81,19 +84,19 @@ export class Header extends Component {
             <Link to="/">HOME</Link>
           </li>
           <li className={this.isActive(history, "/about")}>
-            <Link to="/about">About US</Link>
+            <Link to="/about">ABOUT US</Link>
           </li>
           <li className={this.isActive(history, "/menu")}>
             <Link to="/menu">MENU</Link>
           </li>
-          <li>
-            <a href="javascript:void(0)">REGISTRATION</a>
+          <li className={this.isActive(history, "/signup")}>
+            <Link to="/signup">REGISTRATION</Link>
           </li>
-          <li>
-            <a href="javascript:void(0)">LOGIN</a>
+          <li className={this.isActive(history, "/signin")}>
+            <Link to="/signin">LOGIN</Link>
           </li>
           <li className={this.isActive(history, "/contact")}>
-            <Link to="/contact">Contact US</Link>
+            <Link to="/contact">CONTACT US</Link>
           </li>
         </ul>
       );
@@ -101,15 +104,6 @@ export class Header extends Component {
 
     return (
       <Fragment>
-        {/* <header>
-          <div className="header">
-            {this.state.isloggedin ? (
-              <h2 style={this.isActive(history, "/")}>Header With Login</h2>
-            ) : (
-              <h2 style={this.isActive(history, "/signin")}>Header Without Login</h2>
-            )}
-          </div>
-        </header> */}
         <header className="header">
           <div className="haeader-mid-area  border-bm-gray d-none d-lg-block ">
             <div className="container">

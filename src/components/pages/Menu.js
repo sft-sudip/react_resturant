@@ -116,19 +116,21 @@ export class Menu extends Component {
                     <div className="paginatoin-area">
                       <div className="row">
                         <div className="col-lg-12 col-md-12">
-                          <Pagination
-                            prevPageText="Prev"
-                            nextPageText="Next"
-                            firstPageText="First"
-                            lastPageText="Last"
-                            activePage={activePage}
-                            itemsCountPerPage={6}
-                            totalItemsCount={12}
-                            pageRangeDisplayed={3}
-                            onChange={this.handlePageChange}
-                            itemClass="page-item"
-                            linkClass="page-link"
-                          />
+                          {!isLoading && (
+                            <Pagination
+                              prevPageText="Prev"
+                              nextPageText="Next"
+                              firstPageText="First"
+                              lastPageText="Last"
+                              activePage={activePage}
+                              itemsCountPerPage={6}
+                              totalItemsCount={12}
+                              pageRangeDisplayed={3}
+                              onChange={this.handlePageChange}
+                              itemClass="page-item"
+                              linkClass="page-link"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>

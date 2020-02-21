@@ -4882,7 +4882,7 @@ to {
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 20px;
 	font-weight: 400;
 	letter-spacing: -0.025em;
 	height: 40px;
@@ -4916,11 +4916,27 @@ to {
 }
 .contact-info-text ul li .contact-title i {
 	font-size: 35px;
-	margin-right: 10px;
+margin-right: 10px;
+color:#80c968;
 }
 .contact-info-text ul li .contact-title h4 {
-	margin-bottom: 0;
+margin-bottom: 0;
+padding-left: 10px;
+font-weight: 600;
+font-size: 20px;
 }
+
+
+
+.contact-info-text ul li p{ margin-left: 51px;
+font-size: 16px;
+line-height: 28px;}
+
+
+
+
+
+
 /*--
     18. Cart Page Css
 -----------------------------*/
@@ -5172,11 +5188,14 @@ to {
 }
 }
 .shoping-checkboxt-title {
-	border-bottom: 1px solid #dddddd;
+
+	border-bottom: 1px solid #80bb01;
 	font-size: 24px;
-	font-weight: 500;
+	font-weight: 600;
 	margin-bottom: 30px;
 	padding-bottom: 15px;
+	font-size: 26px;
+
 }
 .single-form-row {
 	margin-bottom: 20px !important;
@@ -5672,12 +5691,9 @@ to {
 	font-size: 14px;
 	border-radius: 10px;
 }
-.login-toggle-btn label {
-	color: white;
-}
 .login-toggle-btn a {
 	float: right;
-	color: white;
+	color: red;
 	font-size: 14px;
 }
 @media only screen and (max-width: 479px) {
@@ -6304,4 +6320,99 @@ z-index: 1;
 }
 .login-register-form .form-control {
 	height: 40px;
+}
+
+.contact-title h3{ font-size:25px; text-align:left; position:relative; margin-bottom: 60px; font-weight: 600;} 
+
+.contact-title h3::before {
+background:
+#80c968 none repeat scroll 0 0;
+bottom: -15px;
+content: "";
+height: 3px;
+left: 14%;
+margin-left: -47px;
+position: absolute;
+width: 80px;
+z-index: 1;
+}
+
+
+.contact-title h5{ font-size:25px; text-align:left; position:relative; margin-bottom: 60px; font-weight: 600;} 
+
+.contact-title h5::before {
+background:
+#80c968 none repeat scroll 0 0;
+bottom: -15px;
+content: "";
+height: 3px;
+left: 52px;
+margin-left: -47px;
+position: absolute;
+width: 80px;
+z-index: 1;
+}
+
+
+.about-shop-image{ float:left; padding:0px; margin:0px; width:40%;}
+
+
+
+.about-shop-text{ float:left; padding:0px 0px 0px 20px; margin:0px; width:60%;}
+
+.about-welcome-text .about-shop-text h2{ text-align: left;
+    font-size: 28px;
+    line-height: 40px;
+    font-weight: 500;
+ }
+
+.about-welcome-text .about-shop-text p{ text-align: left;
+font-size: 16px;
+line-height: 32px;
+margin: 20px 0px;
+padding: 0px;}
+
+
+/********************************************************/
+
+.single-mission .image-thum{ height:250px; width:100%; float:left; padding:0px; margin:0px;}
+.single-mission .image-thum img{ height:250px; width:100%;} 
+
+
+
+.single-mission{ border: 1px solid
+#dbd8d8;
+    border-top-color: rgb(219, 216, 216);
+    border-top-style: solid;
+    border-top-width: 1px;
+border-top-color: rgb(219, 216, 216);
+border-top-style: solid;
+border-top-width: 1px;
+border-top: none;
+
+background:
+#fff;
+box-shadow: 0 0px 0px 0
+rgba(0, 0, 0, 0.08), 0 6px 13px 0
+rgba(0, 0, 0, 0.12);
+overflow: hidden;
+border-radius: 0px 0px 10px 10px;}
+
+
+.content{ float:left; padding:0px; margin:0px;}
+
+.content h4{font-size: 26px;
+text-align: left;
+font-weight: 500;
+padding: 20px 0px;
+margin: 0px;
+color:
+#80bb01;
+text-align: center  }
+
+.content p{     line-height: 30px;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 0px 20px;
 }
