@@ -304,7 +304,7 @@ button:focus, a:focus {
 	background: #80bb01;
 }
 .errorMsg {
-	color: maroon;
+	color: red;
 }
 .pagination-box {
 	display: flex;
@@ -5208,21 +5208,25 @@ line-height: 28px;}
 	color: red;
 }
 .single-form-row input {
-	border: 1px solid #999999;
-	color: #666;
-	font-size: 14px;
-	padding: 5px 12px;
-	width: 100%;
+	border: 1px solid #cecece;
+	color:#666;
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%;
+    border-radius: 8px;
 }
 .single-form-row input::focus {
  outline: none;
 }
 .single-form-row textarea {
-	border: 1px solid #999999;
-	color: #555555;
-	padding: 12px;
-	width: 100%;
-	font-size: 14px;
+border: 1px solid
+#cecece;
+color:
+#555555;
+padding: 12px;
+width: 100%;
+font-size: 14px;
+border-radius: 8px;
 }
 .single-form-row.m-0 {
 	margin: 0 !important;
@@ -5271,16 +5275,18 @@ line-height: 28px;}
 	border-right: medium none;
 	font-size: 14px;
 	padding: 15px 0;
-	text-align: center;
+	text-align: left;
 }
 .your-order-table table th {
 	border-top: medium none;
 	font-weight: normal;
-	text-align: center;
+	text-align: left;
 	text-transform: uppercase;
 	vertical-align: middle;
 	white-space: nowrap;
 	width: 250px;
+	font-weight: 600;
+    font-size: 14px;
 }
 .your-order-table table .shipping > th {
 	vertical-align: top;
@@ -5323,7 +5329,7 @@ line-height: 28px;}
 	background: #80bb01;
 	border: medium none;
 	color: #ffffff;
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: 600;
 	padding: 12px;
 	text-transform: uppercase;
@@ -5685,7 +5691,7 @@ line-height: 28px;}
 	border: 1px solid #fff;
 	color:
 #666666;
-	/* margin-bottom: 20px; */
+	margin-bottom: 20px;
 	padding: 9px 12px;
 	width: 100%;
 	font-size: 14px;
@@ -6416,3 +6422,28 @@ text-align: center  }
     margin-bottom: 35px;
     padding: 0px 20px;
 }
+
+
+
+.billing-details-wrap .nice-select select {
+   
+    width: 105%;
+    font-size: 14px;
+    padding: 0 0px;
+    border: none;
+    margin-bottom: 10px !important;
+   
+}
+
+.thankyou{ width: 100%;
+height: 200px;
+float: left;}
+
+
+.thankyou img{ width: auto;
+height: 200px;
+display: block;
+text-align: center;
+margin: 0px auto;}
+
+.nice-select{ margin-bottom: 14px;}

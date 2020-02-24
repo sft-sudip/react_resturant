@@ -8,6 +8,8 @@ import Signup from "./pages/Signup";
 import Menu from "./pages/Menu";
 import MenuDetail from "./pages/MenuDetail";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Thankyou from "./pages/Thankyou";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./auth/PrivateRoute";
 import { Route, Switch } from "react-router-dom";
@@ -22,6 +24,8 @@ export class Routes extends Component {
         <Route path="/menu" component={Menu} />
         <Route path="/menu-detail" component={MenuDetail} />
         <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/thankyou" component={Thankyou} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <PrivateRoute path="/user/dashboard" component={Dashboard} />
