@@ -21,20 +21,15 @@ export class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
-        <Route path="/menu" component={Menu} />
-        <Route path="/menu-detail" component={MenuDetail} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/thankyou" component={Thankyou} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={Signin} />
-        <PrivateRoute path="/user/dashboard" component={Dashboard} />
-        <Route path="*" component={NotFound} />
-        {/* <Route exact path="/about" component={About} />
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
-        <PrivateRoute path="/user/dashboard" component={Dashboard} />
-        <Route path="*" component={NotFound} /> */}
+        <Route exact path="/menu" component={Menu} />
+        <Route exact path="/menu-detail" component={MenuDetail} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/thankyou" component={Thankyou} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signin" component={Signin} />
+        <PrivateRoute exact path="/user/dashboard" component={Dashboard} />
+        <Route exact path="*" component={NotFound} />
       </Switch>
     );
   }

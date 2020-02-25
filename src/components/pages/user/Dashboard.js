@@ -2,39 +2,99 @@ import React, { Component, Fragment, Suspense } from "react";
 import Header from "../../core/Header";
 import Footer from "../../core/Footer";
 import { Redirect } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import MyProfile from "./MyProfile";
+import MyOrders from "./MyOrders";
+import MySupport from "./MySupport";
+import MyAddress from "./MyAddress";
+import MyEditProfile from "./MyEditProfile";
+import MyPassword from "./MyPassword";
 
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false
+      isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false,
+      isOpen: false
     };
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   loading = () => <div className="cover-spin"></div>;
 
+  toggleMenu = () => {
+    const currentState = this.state.isOpen;
+    this.setState({
+      isOpen: !currentState
+    });
+  };
+
   render() {
-    const { isloggedin } = this.state;
+    const { isloggedin, isOpen } = this.state;
     if (isloggedin === false) {
       return <Redirect to="/signin" />;
     }
 
     return (
-      <div>
+      <div className="main-wrapper">
         <Header />
         <Fragment>
           <Suspense fallback={this.loading()}>
             <div className="innerbanner">
               <div className="container">
                 <div className="row">
-                  <h2>Dashboard</h2>
+                  <h2>My Account</h2>
                   <div className="col-12">
                     <ul className="breadcrumb-list">
                       <li className="breadcrumb-item">
                         <a href="javascript:void(0)">Home</a>
                       </li>
-                      <li className="breadcrumb-item active">Dashboard</li>
+                      <li className="breadcrumb-item active">My Account</li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="main-content-wrap section-ptb my-account-page">
+              <div className="container">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="account-dashboard">
+                      <div className="row">
+                        <div className="col-md-12 col-lg-3">
+                          <Sidebar toggleMenu={this.toggleMenu} isOpen={isOpen} />
+                        </div>
+
+                        <div className="col-md-12 col-lg-9">
+                          <div className="tab-content dashboard-content">
+                            <div className="tab-pane active" id="dashboard">
+                              <MyProfile />
+                            </div>
+
+                            <div className="tab-pane fade" id="orders">
+                              <MyOrders />
+                            </div>
+
+                            <div className="tab-pane fade" id="supports">
+                              <MySupport />
+                            </div>
+
+                            <div className="tab-pane fade" id="address">
+                              <MyAddress />
+                            </div>
+
+                            <div className="tab-pane fade" id="account-details">
+                              <MyEditProfile />
+                            </div>
+
+                            <div className="tab-pane fade" id="change-password">
+                              <MyPassword />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
