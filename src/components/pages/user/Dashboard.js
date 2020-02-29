@@ -63,9 +63,11 @@ export class Dashboard extends Component {
                     <div className="account-dashboard">
                       <div className="row">
                         <div className="col-md-12 col-lg-3">
-                          <Sidebar toggleMenu={this.toggleMenu} isOpen={isOpen} />
+                          <Sidebar
+                            toggleMenu={this.toggleMenu}
+                            isOpen={isOpen}
+                          />
                         </div>
-
                         <div className="col-md-12 col-lg-9">
                           <div className="tab-content dashboard-content">
                             <div className="tab-pane active" id="dashboard">
