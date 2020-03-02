@@ -2,6 +2,7 @@ import React, { Component, Fragment, Suspense } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Select from "react-select";
 
 export class MyAddress extends Component {
   constructor(props) {
@@ -11,7 +12,18 @@ export class MyAddress extends Component {
       isloggedin: localStorage.getItem("isloggedin") === "true" ? true : false,
       fields: {},
       errors: {},
-      isLoading: false
+      isLoading: false,
+      addressTitle: "",
+      countryOptions: [
+        { value: "1", label: "India" },
+        { value: "2", label: "Australia" },
+        { value: "3", label: "England" }
+      ],
+      cityOptions: [
+        { value: "1", label: "Kolkata" },
+        { value: "2", label: "Tokyo" },
+        { value: "3", label: "London" }
+      ]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,18 +32,49 @@ export class MyAddress extends Component {
 
   loading = () => <div className="cover-spin"></div>;
 
-  handleChange(e) {
+  handleChange = e => {
     let fields = this.state.fields;
     fields[e.target.name] = e.target.value;
     this.setState({
       fields
     });
-  }
+  };
+
+  handleSelectChange = (type, selectedOption) => {
+    let fields = this.state.fields;
+    fields[type] = selectedOption;
+    this.setState({
+      fields
+    });
+  };
 
   submitAddressForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
-      toast.success("Address has added successfully!", {
+      let fields = this.state.fields;
+      let message = "";
+      if (fields["id"] != 0) {
+        message = "Address has updated successfully";
+      } else {
+        message = "Addresss has added successfully";
+
+        fields["firstname"] = "";
+        fields["lastname"] = "";
+        fields["phoneno"] = "";
+        fields["email"] = "";
+        fields["houseflatno"] = "";
+        fields["localarea"] = "";
+        fields["address"] = "";
+        fields["pincode"] = "";
+        fields["city"] = "";
+        fields["country"] = "";
+
+        this.setState({
+          fields
+        });
+      }
+
+      toast.success(message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -40,22 +83,6 @@ export class MyAddress extends Component {
         draggable: false
       });
     }
-
-    let fields = this.state.fields;
-    fields["firstname"] = "";
-    fields["lastname"] = "";
-    fields["phoneno"] = "";
-    fields["email"] = "";
-    fields["houseflatno"] = "";
-    fields["localarea"] = "";
-    fields["address"] = "";
-    fields["pincode"] = "";
-    fields["city"] = "";
-    fields["country"] = "";
-
-    this.setState({
-      fields
-    });
   }
 
   validateForm() {
@@ -158,20 +185,73 @@ export class MyAddress extends Component {
     return formIsValid;
   }
 
-  openAddressModal = () => {
+  openAddressModal = id => {
+    let fields = this.state.fields;
+    let addressTitle = "";
+    fields["id"] = id;
+
+    if (id != 0) {
+      addressTitle = "Edit Address";
+      fields["firstname"] = "fff" + id;
+      fields["lastname"] = "lll" + id;
+      fields["phoneno"] = "987654321" + id;
+      fields["email"] = "s@s.com" + id;
+      fields["houseflatno"] = "hhh" + id;
+      fields["localarea"] = "aaa" + id;
+      fields["address"] = "kol" + id;
+      fields["pincode"] = "74140" + id;
+      fields["city"] = this.state.cityOptions[id - 1];
+      fields["country"] = this.state.countryOptions[id - 1];
+    } else {
+      addressTitle = "Add New Address";
+      fields["firstname"] = "";
+      fields["lastname"] = "";
+      fields["phoneno"] = "";
+      fields["email"] = "";
+      fields["houseflatno"] = "";
+      fields["localarea"] = "";
+      fields["address"] = "";
+      fields["pincode"] = "";
+      fields["city"] = "";
+      fields["country"] = "";
+    }
+
     this.setState({
-      addressModal: true
+      addressTitle: addressTitle,
+      addressModal: true,
+      fields
     });
   };
 
   closeAddressModal = () => {
+    let errors = this.state.errors;
+    errors["firstname"] = "";
+    errors["lastname"] = "";
+    errors["phoneno"] = "";
+    errors["email"] = "";
+    errors["houseflatno"] = "";
+    errors["localarea"] = "";
+    errors["address"] = "";
+    errors["pincode"] = "";
+    errors["city"] = "";
+    errors["country"] = "";
     this.setState({
-      addressModal: false
+      addressModal: false,
+      errors
     });
   };
 
   render() {
-    const { isloggedin, isLoading, fields, errors, addressModal } = this.state;
+    const {
+      isloggedin,
+      isLoading,
+      fields,
+      errors,
+      addressModal,
+      addressTitle,
+      countryOptions,
+      cityOptions
+    } = this.state;
     return (
       <Fragment>
         <Suspense fallback={this.loading()}>
@@ -180,7 +260,7 @@ export class MyAddress extends Component {
               <h4 className="billing-address">Delivery Address</h4>
             </div>
             <div className="col-md-6 text-right">
-              <a className="view" onClick={this.openAddressModal}>
+              <a className="view" onClick={this.openAddressModal.bind(this, 0)}>
                 Add New Address
               </a>
             </div>
@@ -193,7 +273,7 @@ export class MyAddress extends Component {
               </p>
             </div>
             <div className="col-md-2">
-              <a href="javascript:void(0)" className="view">
+              <a className="view" onClick={this.openAddressModal.bind(this, 1)}>
                 edit
               </a>
             </div>
@@ -206,7 +286,7 @@ export class MyAddress extends Component {
               </p>
             </div>
             <div className="col-md-2">
-              <a href="javascript:void(0)" className="view">
+              <a className="view" onClick={this.openAddressModal.bind(this, 2)}>
                 edit
               </a>
             </div>
@@ -223,7 +303,7 @@ export class MyAddress extends Component {
                 onSubmit={this.submitAddressForm}
               >
                 <Modal.Header closeButton>
-                  <Modal.Title>Add New Address</Modal.Title>
+                  <Modal.Title>{addressTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <div className="card card-body">
@@ -231,7 +311,7 @@ export class MyAddress extends Component {
                       <div className="col-lg-6">
                         <p className="single-form-row">
                           <label>
-                            First name <span className="required">*</span>
+                            First Name <span className="required">*</span>
                           </label>
                           <input
                             type="text"
@@ -291,6 +371,41 @@ export class MyAddress extends Component {
                             autoComplete="off"
                           />
                           <div className="errorMsg">{errors.email}</div>
+                        </p>
+                      </div>
+
+                      <div className="col-lg-6">
+                        <p className="single-form-row">
+                          <label>
+                            City <span className="required">*</span>
+                          </label>
+                          <Select
+                            value={fields.city}
+                            onChange={this.handleSelectChange.bind(
+                              this,
+                              "city"
+                            )}
+                            placeholder="Select City"
+                            options={cityOptions}
+                          />
+                          <div className="errorMsg">{errors.city}</div>
+                        </p>
+                      </div>
+                      <div className="col-lg-6">
+                        <p className="single-form-row">
+                          <label>
+                            Country <span className="required">*</span>
+                          </label>
+                          <Select
+                            value={fields.country}
+                            onChange={this.handleSelectChange.bind(
+                              this,
+                              "country"
+                            )}
+                            placeholder="Select Country"
+                            options={countryOptions}
+                          />
+                          <div className="errorMsg">{errors.country}</div>
                         </p>
                       </div>
 
@@ -362,43 +477,6 @@ export class MyAddress extends Component {
                           <div className="errorMsg">{errors.pincode}</div>
                         </p>
                       </div>
-
-                      <div className="col-lg-6">
-                        <p className="single-form-row">
-                          <label>
-                            City <span className="required">*</span>
-                          </label>
-                          <select
-                            name="city"
-                            className="form-control"
-                            onChange={this.handleChange}
-                          >
-                            <option value="">Select City</option>
-                            <option value="1">Kolkata</option>
-                            <option value="2">Bangalore</option>
-                            <option value="3">Chennai</option>
-                          </select>
-                          <div className="errorMsg">{errors.city}</div>
-                        </p>
-                      </div>
-                      <div className="col-lg-6">
-                        <p className="single-form-row">
-                          <label>
-                            Country <span className="required">*</span>
-                          </label>
-                          <select
-                            name="country"
-                            className="form-control"
-                            onChange={this.handleChange}
-                          >
-                            <option value="">Select Country</option>
-                            <option value="1">India</option>
-                            <option value="2">Australia</option>
-                            <option value="3">England</option>
-                          </select>
-                          <div className="errorMsg">{errors.country}</div>
-                        </p>
-                      </div>
                     </div>
                   </div>
                 </Modal.Body>
@@ -413,119 +491,6 @@ export class MyAddress extends Component {
               </form>
             </Modal>
           )}
-
-          {/* <p>
-            <a
-              className="btn btn-primary"
-              data-toggle="collapse"
-              href="#collapseExample"
-              role="button"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              Add New Address
-            </a>
-          </p>
-          <div className="collapse" id="collapseExample">
-            <div className="card card-body">
-              <form>
-                <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label for="inputEmail4">First Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputEmail4"
-                      placeholder="First Name"
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label for="inputPassword4">Last Name"</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputPassword4"
-                      placeholder="Last Name"
-                    />
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="inputEmail4"
-                      placeholder="Email"
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label for="inputPassword4">Contact Number</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputPassword4"
-                      placeholder="Contact Number"
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label for="inputAddress">Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress"
-                    placeholder="1234 Main St"
-                  />
-                </div>
-                <div className="form-group">
-                  <label for="inputAddress2">Address 2</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress2"
-                    placeholder="Apartment, studio, or floor"
-                  />
-                </div>
-                <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputCity"
-                    />
-                  </div>
-                  <div className="form-group col-md-4">
-                    <label for="inputState">State</label>
-                    <select id="inputState" className="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
-                    </select>
-                  </div>
-                  <div className="form-group col-md-2">
-                    <label for="inputZip">Zip</label>
-                    <input type="text" className="form-control" id="inputZip" />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="gridCheck"
-                    />
-                    <label className="form-check-label" for="gridCheck">
-                      Check me out
-                    </label>
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div> */}
         </Suspense>
         <ToastContainer />
       </Fragment>

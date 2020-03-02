@@ -9,6 +9,8 @@ import MySupport from "./MySupport";
 import MyAddress from "./MyAddress";
 import MyEditProfile from "./MyEditProfile";
 import MyPassword from "./MyPassword";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -27,6 +29,35 @@ export class Dashboard extends Component {
     this.setState({
       isOpen: !currentState
     });
+  };
+
+  logoutSubmit = () => {
+    const r = window.confirm("Do you really want to Sign Out?");
+    if (r === true) {
+      toast.success("Logout Successfull!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false
+      });
+      setTimeout(
+        function() {
+          this.setState(
+            {
+              isloggedin: false
+            },
+            () => {
+              localStorage.removeItem("isloggedin");
+              localStorage.removeItem("userData");
+              this.props.history.push("/signin");
+            }
+          );
+        }.bind(this),
+        1500
+      );
+    }
   };
 
   render() {
@@ -66,6 +97,7 @@ export class Dashboard extends Component {
                           <Sidebar
                             toggleMenu={this.toggleMenu}
                             isOpen={isOpen}
+                            logoutSubmit={this.logoutSubmit}
                           />
                         </div>
                         <div className="col-md-12 col-lg-9">
@@ -104,6 +136,7 @@ export class Dashboard extends Component {
           </Suspense>
         </Fragment>
         <Footer />
+        <ToastContainer />
       </div>
     );
   }

@@ -8,7 +8,7 @@ export class Sidebar extends Component {
   loading = () => <div className="cover-spin"></div>;
 
   render() {
-    const { isOpen, toggleMenu } = this.props;
+    const { isOpen, toggleMenu, logoutSubmit } = this.props;
     return (
       <Fragment>
         <Suspense fallback={this.loading()}>
@@ -62,7 +62,7 @@ export class Sidebar extends Component {
             </li>
 
             <li>
-              <a href="javascript:void(0)" className="nav-link">
+              <a onClick={logoutSubmit} className="nav-link">
                 logout
               </a>
             </li>
