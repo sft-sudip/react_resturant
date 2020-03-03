@@ -194,10 +194,10 @@ export class Header extends Component {
                               </div>
                             </div>
                             <a
-                              className="remove_from_cart"
                               href="javascript:void(0)"
+                              className="cross_arrow"
                             >
-                              <i className="fa fa-trash-o"></i>
+                              <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
                           </div>
                         </li>
@@ -218,10 +218,10 @@ export class Header extends Component {
                               </div>
                             </div>
                             <a
-                              className="remove_from_cart"
                               href="javascript:void(0)"
+                              className="cross_arrow"
                             >
-                              <i className="fa fa-trash-o"></i>
+                              <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
                           </div>
                         </li>
