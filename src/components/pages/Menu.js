@@ -38,31 +38,14 @@ export class Menu extends Component {
   };
 
   addToCart = id => {
-    if (this.state.isloggedin) {
-      toast.success("Menu has added in Cart", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false
-      });
-    } else {
-      toast.error("You need to do login first", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false
-      });
-      setTimeout(
-        function() {
-          this.props.history.push("/signin");
-        }.bind(this),
-        2000
-      );
-    }
+    toast.success("Menu has added in Cart", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false
+    });
   };
 
   componentDidMount = () => {

@@ -5226,7 +5226,7 @@ to {
 .single-form-row label span.required {
 	color: red;
 }
-.single-form-row input {
+.single-form-row input,select {
 	border: 1px solid #cecece;
 	color:#666;
 	font-size: 14px;
@@ -5623,6 +5623,16 @@ to {
  min-width: 260px;
 }
 }
+
+.billing-details-wrap .view {
+    background: #80bb01;
+    color: #ffffff !important;
+    font-size: 12px;
+    padding: 10px 22px;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
 .dashboard-content .view {
 	background:#80bb01;
 	color:#ffffff !important;
@@ -6556,6 +6566,11 @@ z-index: 1;
 	border-top:1px solid #090;
 	padding:20px 0px;
 	margin:0px;
+}
+.adrs_box_check {
+	border-bottom: 1px solid #090;
+	padding: 20px 0px;
+	margin: 0px;
 }
 .adrs_box_left p span {
 	margin-right: 15px;
